@@ -63,6 +63,7 @@ namespace LightNodePlayground
 		/// Say hello to the specified name.
 		/// </summary>
 		/// <param name="name">Name.</param>
+		[Post]
 		public Response Hello (string name)
 		{
 			return new Response { Greetings = string.Format ("Hello, {0}!", name) };
