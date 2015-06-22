@@ -5,6 +5,7 @@ using LightNode.Server;
 using LightNode.Formatter;
 using LightNode.Swagger;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace LightNodePlayground
 {
@@ -92,7 +93,13 @@ namespace LightNodePlayground
 		/// </summary>
 		public Response ()
 		{
-			Environment = System.Environment.Version.ToString ();
+			Type type = Type.GetType("Mono.Runtime");
+			if (type != null)
+			{                                          
+				MethodInfo displayName = type.GetMethod("GetDisplayName", BindingFlags.NonPublic | BindingFlags.Static); 
+				if (displayName != null)                   
+					Environment = displayName.Invoke(null, null).ToString(); 
+			}
 		}
 	}
 }
